@@ -42,6 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\ImageLabel.cs" />
+    <Compile Include="UI\MainMenu.cs" />
+    <Compile Include="UI\Screen.cs" />
     <Compile Include="World\Cheese.cs" />
     <Compile Include="World\CheeseManager.cs" />
     <Compile Include="Game1.cs" />

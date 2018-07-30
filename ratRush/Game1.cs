@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using rbWhitaker.UI;
+using System;
 
 namespace rbWhitaker
 {
@@ -13,10 +15,12 @@ namespace rbWhitaker
         SpriteBatch spriteBatch;
         private Texture2D background;
         private Player player;
+        private MainMenu mainMenu;
 
         private readonly CheeseManager cheeseManager = CheeseManager.Instance;
         private int score = 0;
         private SpriteFont font;
+        private bool isPlaying = false;
 
         public Game1()
         {
@@ -37,6 +41,7 @@ namespace rbWhitaker
             graphics.PreferredBackBufferWidth = 800;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
             graphics.ApplyChanges();
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -55,7 +60,8 @@ namespace rbWhitaker
 
             background = Content.Load<Texture2D>("Grass");
             font = Content.Load<SpriteFont>("Score");
-            // TODO: use this.Content to load your game content here
+            mainMenu = new MainMenu(Content, spriteBatch, font);
+            mainMenu.playButton.MouseClick += StartGame;
         }
 
         /// <summary>
@@ -74,17 +80,24 @@ namespace rbWhitaker
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            KeyboardState state = Keyboard.GetState();
-            player.Update(state);
-            cheeseManager.Update();
-            score = score + cheeseManager.PlayerTouchesCheese(player);
-
-            if(RandomNumberGenerator.NumberBetween(0,60) <= 6)
+            if (isPlaying)
             {
-                cheeseManager.CreateNewCheese(Content, 800, 600);
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Exit();
+
+                KeyboardState state = Keyboard.GetState();
+                player.Update(state);
+                cheeseManager.Update();
+                score = score + cheeseManager.PlayerTouchesCheese(player);
+
+                if (RandomNumberGenerator.NumberBetween(0, 60) <= 6)
+                {
+                    cheeseManager.CreateNewCheese(Content, 800, 600);
+                }
+            }
+            else
+            {
+                mainMenu.Update();
             }
 
 
@@ -102,15 +115,28 @@ namespace rbWhitaker
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            spriteBatch.Draw(background, new Rectangle(0, 0, 800, 600), Color.White);
-            cheeseManager.Draw(spriteBatch);
-            player.Draw(spriteBatch);
 
-            spriteBatch.DrawString(font, $"Score {score}", Vector2.Zero, Color.White);
+            if (isPlaying)
+            {
+                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 600), Color.White);
+                cheeseManager.Draw(spriteBatch);
+                player.Draw(spriteBatch);
+
+                spriteBatch.DrawString(font, $"Score {score}", Vector2.Zero, Color.White);
+            }
+            else
+            {
+                mainMenu.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void StartGame(object sender, EventArgs args)
+        {
+            isPlaying = true;
         }
     }
 }
