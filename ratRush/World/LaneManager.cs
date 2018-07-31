@@ -35,7 +35,17 @@ namespace rbWhitaker.World
         {
             for(int i = 0; i< NUMBER_OF_LANES; i++)
             {
-                lanes.Add(new Lane(content,220*i + 15));
+                Lane lane = new Lane(content, 220 * i + 15);
+                lanes.Add(lane);
+                lane.FreeItemSlot += AddItemToLane;
+            }
+        }
+
+        private void AddItemToLane(object sender, EventArgs e)
+        {
+            Lane lane = (Lane)sender;
+            if (RandomNumberGenerator.NumberBetween(1, 3) == 1){
+                lane.First.AddItem(ItemFactory.Instance.NewCheese(lane.First.Position.X, lane.First.Position.Y + 40)); 
             }
         }
 

@@ -64,6 +64,7 @@ namespace rbWhitaker
             mainMenu = new MainMenu(Content, spriteBatch, font);
             mainMenu.playButton.MouseClick += StartGame;
             LaneManager.LoadContent(Content);
+            ItemFactory.Instance.LoadItems(Content);
         }
 
         /// <summary>

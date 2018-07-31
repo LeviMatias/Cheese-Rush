@@ -13,6 +13,9 @@ namespace rbWhitaker.World
     public class Lane
     {
         private readonly List<ImageLabelWithItem> path = new List<ImageLabelWithItem>();
+        public ImageLabelWithItem First;
+
+        public event EventHandler FreeItemSlot;
 
         public Lane(ContentManager content, int y)
         {
@@ -22,6 +25,7 @@ namespace rbWhitaker.World
             {
                 path.Add(new ImageLabelWithItem(texture,new Vector2(texture.Width*(i-1), y)));
             }
+            First = path.First();
         }
 
         public void Update(int speed)
@@ -31,6 +35,9 @@ namespace rbWhitaker.World
                 if (img.Position.X == 800)
                 {
                     img.ChangePosition(new Vector2(0 - img.Texture.Width, img.Position.Y));
+                    First = img;
+                    img.AddItem(null);
+                    FreeItemSlot?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {

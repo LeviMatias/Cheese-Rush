@@ -10,7 +10,7 @@ namespace rbWhitaker
 {
     class PlayerMovementManager
     {
-        private const int walkSpeed = 3;
+        private const int walkSpeed = 5;
 
         enum YMovementKeys {W = -walkSpeed, S = walkSpeed }
         enum XMovementKeys {A = -walkSpeed, D = walkSpeed }

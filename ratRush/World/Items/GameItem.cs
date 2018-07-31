@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace rbWhitaker.World
+namespace rbWhitaker.World.Items
 {
     public abstract class GameItem
     {
@@ -14,7 +14,5 @@ namespace rbWhitaker.World
         public Rectangle Hitbox;
 
         public abstract void Draw(SpriteBatch spriteBatch);
-
-
     }
 }

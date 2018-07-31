@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using rbWhitaker.World.Items;
 
 namespace rbWhitaker.World
 {
-    internal class ImageLabelWithItem : ImageLabel
+    public class ImageLabelWithItem : ImageLabel
     {
         public GameItem Item;
 
@@ -21,6 +22,24 @@ namespace rbWhitaker.World
         public void AddItem(GameItem item)
         {
             Item = item;
+        }
+
+        public new void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (Item != null)
+            {
+                Item.Draw(spriteBatch);
+            }
+        }
+
+        public new void ChangePosition(Vector2 pos)
+        {
+            if(Item != null)
+            {
+                Item.Hitbox.X = (int)pos.X;
+            }
+            base.ChangePosition(pos); 
         }
     }
 }
