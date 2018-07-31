@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using rbWhitaker.UI;
+using rbWhitaker.World;
 using System;
 
 namespace rbWhitaker
@@ -17,7 +18,7 @@ namespace rbWhitaker
         private Player player;
         private MainMenu mainMenu;
 
-        private readonly CheeseManager cheeseManager = CheeseManager.Instance;
+        private readonly LaneManager LaneManager = LaneManager.Instance;
         private int score = 0;
         private SpriteFont font;
         private bool isPlaying = false;
@@ -62,6 +63,7 @@ namespace rbWhitaker
             font = Content.Load<SpriteFont>("Score");
             mainMenu = new MainMenu(Content, spriteBatch, font);
             mainMenu.playButton.MouseClick += StartGame;
+            LaneManager.LoadContent(Content);
         }
 
         /// <summary>
@@ -87,12 +89,12 @@ namespace rbWhitaker
 
                 KeyboardState state = Keyboard.GetState();
                 player.Update(state);
-                cheeseManager.Update();
-                score = score + cheeseManager.PlayerTouchesCheese(player);
+                LaneManager.Update();
+               // score = score + cheeseManager.PlayerTouchesCheese(player);
 
                 if (RandomNumberGenerator.NumberBetween(0, 60) <= 6)
                 {
-                    cheeseManager.CreateNewCheese(Content, 800, 600);
+                    //cheeseManager.CreateNewCheese(Content, 800, 600);
                 }
             }
             else
@@ -119,7 +121,7 @@ namespace rbWhitaker
             if (isPlaying)
             {
                 spriteBatch.Draw(background, new Rectangle(0, 0, 800, 600), Color.White);
-                cheeseManager.Draw(spriteBatch);
+                LaneManager.Draw(spriteBatch);
                 player.Draw(spriteBatch);
 
                 spriteBatch.DrawString(font, $"Score {score}", Vector2.Zero, Color.White);

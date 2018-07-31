@@ -46,7 +46,8 @@
     <Compile Include="UI\ImageLabel.cs" />
     <Compile Include="UI\MainMenu.cs" />
     <Compile Include="UI\Screen.cs" />
-    <Compile Include="World\Cheese.cs" />
+    <Compile Include="World\ImageLabelWithItem.cs" />
+    <Compile Include="World\Items\Cheese.cs" />
     <Compile Include="World\CheeseManager.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Player\Player.cs" />
@@ -54,6 +55,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomNumberGenerator.cs" />
+    <Compile Include="World\Items\GameItem.cs" />
+    <Compile Include="World\Lane.cs" />
+    <Compile Include="World\Items\MouseTrap.cs" />
+    <Compile Include="World\LaneManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

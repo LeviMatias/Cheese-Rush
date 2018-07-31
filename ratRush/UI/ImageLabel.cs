@@ -25,5 +25,9 @@ namespace rbWhitaker.UI
             spriteBatch.Draw(Texture, Position, Color.White);
         }
 
+        public void ChangePosition(Vector2 pos)
+        {
+            Position = pos;
+        }
     }
 }

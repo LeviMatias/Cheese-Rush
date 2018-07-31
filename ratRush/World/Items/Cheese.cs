@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rbWhitaker.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace rbWhitaker
 {
-    public class Cheese
+    public class Cheese : GameItem
     {
-        private Texture2D texture;
         private int cheeseLife = 0;
         private int MAX_CHEESE_LIFE = 200;
-
-        public Rectangle Hitbox;
 
 
         internal Cheese(Texture2D texture, int x, int y)
@@ -23,7 +21,7 @@ namespace rbWhitaker
             Hitbox = new Rectangle(x, y, texture.Width, texture.Height);
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Hitbox, Color.White);
         }
